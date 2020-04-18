@@ -1,0 +1,63 @@
+swagger: '2.0'
+info:
+  description: This is an API for pictures
+  version: 1.0.0
+  title: Pictures API
+  # put the contact info for your development or API team
+
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+
+paths:
+  /img:
+    get:
+      summary: Get a random image
+      operationId: app.get_image
+      produces:
+      - application/json
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+            type: string
+
+  /db:
+    get:
+      summary: Get all images from db
+      operationId: app.get_all
+      produces:
+        - application/json
+      responses:
+        200:
+          description: images
+          schema:
+            type: object
+    post:
+      summary: send saved to db
+      operationId: app.save_image
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: image
+        description: Array of images
+        schema:
+          $ref: "#/definitions/image"
+      responses:
+        200:
+          description: Pics sent to db
+        400:
+          description: Bad input
+
+
+definitions:
+  image:
+    type: object
+    required:
+      - image
+    properties:
+      image:
+        type: string
